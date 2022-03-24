@@ -22,7 +22,7 @@ const todoList = () =>{
     });
     
 }
-// Info date
+// Informacion date (fecha)
 const dateNumber = document.getElementById('dateNumber');
 const dateText = document.getElementById('dateText');
 const dateMonth = document.getElementById('dateMonth');
@@ -33,20 +33,39 @@ const tasksContainer = document.getElementById('tasksContainer');
 
 const setDate = () => {
     const date = new Date();
+    
     dateNumber.textContent = date.toLocaleString('es', { day: 'numeric' });
+    // console.log('====================================');
+    // console.log(date.toLocaleString('es', { day: 'numeric' }));
+    // console.log('====================================');
+
     dateText.textContent = date.toLocaleString('es', { weekday: 'long' });
+    // console.log('====================================');
+    // console.log(date.toLocaleString('es', { weekday: 'short' }));
+    // console.log('====================================');
     dateMonth.textContent = date.toLocaleString('es', { month: 'short' });
+    // console.log('====================================');
+    // console.log(date.toLocaleString('es', { month: 'long' }));
+    // console.log('====================================');
     dateYear.textContent = date.toLocaleString('es', { year: 'numeric' });
+    // console.log('====================================');
+    // console.log(date.toLocaleString('es', { year: 'numeric' }));
+    // console.log('====================================');
 };
 
 const addNewTask = event => {
     event.preventDefault();
+    // console.log('====================================');
+    // console.log(event.target.taskText.value);
+    // console.log('====================================');
+    // if(!event.target.taskText.value) return;
     const { value } = event.target.taskText;
     if(!value) return;
+
     const task = document.createElement('div');
-    task.classList.add('task', 'roundBorder');
+    task.classList.add('task', 'roundBorder', );
     task.addEventListener('click', changeTaskState)
-    task.textContent = value;
+    task.textContent = `Una tarea - ${value}`;
     tasksContainer.prepend(task);
     // localStorage.setItem("toDOList", JSON.stringify(todoListItems)); todoListItems.push({ taskName: value, });
     
@@ -54,20 +73,32 @@ const addNewTask = event => {
 };
 
 const changeTaskState = event => {
+    // console.log('====================================');
+    // console.log(event.target.classList);
+    // console.log('====================================');
     event.target.classList.toggle('done');
 };
 
 const order = () => {
     const done = [];
     const toDo = [];
-    tasksContainer.childNodes.forEach( element => {
-        element.classList.contains('done') ? done.push(element) : toDo.push(element)
+    // console.log('================aqui debemos ver un array de nodos===================');
+    // console.log(tasksContainer.childNodes);
+    // console.log('====================================');
+    tasksContainer.childNodes.forEach( nodo => {
+        nodo.classList.contains('done') ? done.push(nodo) : toDo.push(nodo)
     })
-    return [...toDo, ...done];
+    return [...done, ...toDo ];
 }
 
 const renderOrderedTasks = () => {
-    order().forEach(element => tasksContainer.appendChild(element))
+
+    // console.log('====================================');
+    // console.log(order());
+    // console.log('====================================');
+    // const data = order();
+    // data.forEach(element => tasksContainer.appendChild(element))
+    order().forEach(element => tasksContainer.appendChild(element));
     
 }
 
