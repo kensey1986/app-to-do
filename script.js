@@ -1,23 +1,28 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     todoList();
-// })
+document.addEventListener('DOMContentLoaded', () => {
+     todoList();
+})
 
 let todoListItems = [
     {
-        taskName: 'una tarea',
+        taskName: 'lavar platos',
     },
     {
-        taskName: '2 tarea',
+        taskName: 'entrevista a las 5',
     },
+    {
+        taskName: 'recoger a mi novia',
+    }
 ]
 const todoList = () =>{
-        // const listLocalStorage = JSON.parse(localStorage.getItem("toDOList"))
-        // listLocalStorage? (todoListItems= listLocalStorage) : (todoListItems = todoListItems)
-        todoListItems.forEach(element => {
+        const listLocalStorage = JSON.parse(localStorage.getItem("toDOList"));
+        console.log("🚀 ~ file: script.js ~ line 18 ~ todoList ~ listLocalStorage", listLocalStorage)
+        
+        listLocalStorage ? (todoListItems= listLocalStorage) : (todoListItems = todoListItems)
+        todoListItems.forEach(nodo => {
         const task = document.createElement('div');
         task.classList.add('task', 'roundBorder');
         task.addEventListener('click', changeTaskState)
-        task.textContent = element.taskName;
+        task.textContent = nodo.taskName;
         tasksContainer.prepend(task);
     });
     
@@ -60,14 +65,16 @@ const addNewTask = event => {
     // console.log('====================================');
     // if(!event.target.taskText.value) return;
     const { value } = event.target.taskText;
+
     if(!value) return;
 
     const task = document.createElement('div');
     task.classList.add('task', 'roundBorder', );
     task.addEventListener('click', changeTaskState)
-    task.textContent = `Una tarea - ${value}`;
+    task.textContent = `${value}`;
     tasksContainer.prepend(task);
-    // localStorage.setItem("toDOList", JSON.stringify(todoListItems)); todoListItems.push({ taskName: value, });
+    todoListItems.push({ taskName: value, });
+    localStorage.setItem("toDOList", JSON.stringify(todoListItems)); 
     
     event.target.reset();
 };
@@ -103,3 +110,5 @@ const renderOrderedTasks = () => {
 }
 
 setDate();
+
+
